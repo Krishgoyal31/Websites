@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For The Ultimate Bro!</title>
+    <!-- Importing a fun, comic-style font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif; /* Fallback font */
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1);
+            background-size: 400% 400%;
+            animation: crazyBackground 10s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden; /* Prevents scrollbars from confetti */
+        }
+
+        @keyframes crazyBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Main container for the pages */
+        .container {
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Styling for each "page" */
+        .page {
+            display: none;
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 0 #000, 0 15px 30px rgba(0,0,0,0.4);
+            text-align: center;
+            border: 5px solid #000;
+            transform: rotate(-1deg); /* A quirky tilt */
+        }
+
+        .page.active {
+            display: block;
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.2) rotate(15deg); opacity: 0; }
+            100% { transform: scale(1) rotate(-1deg); opacity: 1; }
+        }
+
+        /* Comic-style headings */
+        h1, h2 {
+            font-family: 'Bangers', cursive;
+            font-size: 4rem;
+            color: #ff6b6b;
+            -webkit-text-stroke: 2px #000;
+            text-shadow: 4px 4px 0 #000;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            line-height: 1.1;
+        }
+
+        h2 {
+           font-size: 3rem;
+           color: #48dbfb;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        /* Big, chunky buttons */
+        .btn {
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            background: #feca57;
+            color: #000;
+            border: 4px solid #000;
+            padding: 15px 35px;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 5px 5px 0 #000;
+            transition: all 0.1s ease-in-out;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) translateX(-5px);
+            box-shadow: 10px 10px 0 #000;
+        }
+
+        .btn:active {
+            transform: translateY(2px) translateX(2px);
+            box-shadow: 3px 3px 0 #000;
+        }
+
+        /* Special card for stats and messages */
+        .info-card {
+            background: #e8faff;
+            border: 3px dashed #000;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 10px;
+            animation: wiggle 4s ease-in-out infinite;
+        }
+
+        .joke-card {
+            background: #fff0f0;
+            border: 3px dashed #ff6b6b;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            75% { transform: rotate(-2deg); }
+        }
+
+        .stat-list {
+            list-style: none;
+            font-weight: bold;
+            font-size: 1.3rem;
+            text-align: left;
+        }
+        .stat-list li {
+            margin-bottom: 10px;
+        }
+        .stat-list span {
+            display: inline-block;
+            background: #1dd1a1;
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: 2px solid #000;
+            color: #000;
+        }
+
+        /* The big reveal for the prophecy */
+        .prophecy {
+            background: #ffda79;
+            border: 5px solid #000;
+            padding: 30px;
+            margin: 20px 0;
+            transform: rotate(2deg);
+        }
+        .prophecy p {
+            font-family: 'Bangers', cursive;
+            font-size: 2.2rem;
+            color: #ff4757;
+            -webkit-text-stroke: 1px #000;
+            text-shadow: 2px 2px 0 #000;
+            margin: 0;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* --- GAME STYLES --- */
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            -webkit-text-stroke: 1px #000;
+            margin-bottom: 20px;
+        }
+        .game-stats span {
+            color: #48dbfb;
+        }
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .hole {
+            width: 100px;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="50" cy="50" r="40" fill="%23444" /></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            margin: auto;
+            border-radius: 50%;
+        }
+        .mole {
+            font-size: 60px;
+            position: absolute;
+            bottom: -100%;
+            width: 100%;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .hole.up .mole {
+            bottom: 0;
+        }
+        #game-result {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Confetti effect styling */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Page 1: The Warning -->
+        <div class="page active" id="page1">
+            <h1>WARNING!</h1>
+            <p>This website contains dangerously high levels of friendship and bro-energy. Proceed with caution. Are you ready for this epicness?</p>
+            <button class="btn" onclick="nextPage()">Heck Yeah!</button>
+        </div>
+
+        <!-- Page 2: The Stats -->
+        <div class="page" id="page2">
+            <h2>Player Analysis!</h2>
+            <p>We've analyzed your friend's data. The results are legendary!</p>
+            <div class="info-card">
+                <ul class="stat-list">
+                    <li><span>Humor:</span> 99/100 (That one joke was bad, bro)</li>
+                    <li><span>Loyalty:</span> 101/100 (System crashed)</li>
+                    <li><span>Gaming Skill:</span> OVER 9000!</li>
+                    <li><span>Support:</span> Available 24/7</li>
+                </ul>
+            </div>
+            <button class="btn" onclick="nextPage()">More nonsense!</button>
+        </div>
+
+        <!-- Page 3: Praise and Jokes -->
+        <div class="page" id="page3">
+            <h2>Praise & Jokes!</h2>
+            <div class="joke-card">
+                <p>Bro, you're so cool, even ice cubes get jealous and melt when you're around!</p>
+            </div>
+            <div class="joke-card" style="background: #efffef; border-color: #1dd1a1;">
+                <p>Friend: What's the best thing about our friendship?<br>Me: That I have such low standards. 😂 JK BRO!</p>
+            </div>
+            <p>You're the human version of 'Ctrl+F' because I can always find what I'm looking for in a friend like you!</p>
+            <button class="btn" onclick="nextPage()">See The Future!</button>
+        </div>
+
+        <!-- Page 4: The Prophecy -->
+        <div class="page" id="page4">
+            <h1>The Prophecy!</h1>
+            <p>The universe has spoken! A special message has been delivered from the future just for you, Vaibhav!</p>
+            <div class="prophecy">
+                <p>"Tujhe bandi mil jayegi bhai, tension na le! 😉"</p>
+            </div>
+            <p>Seriously though, Vaibhav, thanks for being an awesome friend. Cheers to more madness! 🍻</p>
+            <button class="btn" onclick="nextPage()">Final Boss Battle!</button>
+        </div>
+
+        <!-- Page 5: The Game -->
+        <div class="page" id="page5">
+            <h2>Whack-A-Nerd!</h2>
+            <p>Whack the nerdy emoji (🤓) as many times as you can in 15 seconds! Go!</p>
+            <div class="game-stats">
+                <h3>Time: <span id="timer">15</span></h3>
+                <h3>Score: <span id="score">0</span></h3>
+            </div>
+            <div class="game-grid">
+                <div class="hole"><div class="mole">🤓</div></div>
+                <div class="hole"><div class="mole">🤓</div></div>
+                <div class="hole"><div class="mole">🤓</div></div>
+                <div class="hole"><div class="mole">🤓</div></div>
+                <div class="hole"><div class="mole">🤓</div></div>
+                <div class="hole"><div class="mole">🤓</div></div>
+            </div>
+            <div id="game-result"></div>
+            <button class="btn" id="start-btn" onclick="startGame()">Start Game!</button>
+            <button class="btn" id="restart-btn" onclick="restart()" style="display: none;">Play Again!</button>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 5; // We now have 5 pages
+
+        function nextPage() {
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            currentPage++;
+            if (currentPage > totalPages) currentPage = 1;
+            document.getElementById(`page${currentPage}`).classList.add('active');
+        }
+
+        function restart() {
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            currentPage = 1;
+            document.getElementById(`page${currentPage}`).classList.add('active');
+            resetGame();
+        }
+
+        // --- GAME LOGIC (Whack-a-Nerd) ---
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const timerEl = document.getElementById('timer');
+        const scoreEl = document.getElementById('score');
+        const resultEl = document.getElementById('game-result');
+        const holes = document.querySelectorAll('.hole');
+        const moles = document.querySelectorAll('.mole');
+
+        let lastHole;
+        let score = 0;
+        let timeLeft = 15;
+        let timeUp = false;
+        let gameInterval;
+        let peepInterval;
+
+        function randomTime(min, max) {
+            return Math.round(Math.random() * (max - min) + min);
+        }
+
+        function randomHole(holes) {
+            const idx = Math.floor(Math.random() * holes.length);
+            const hole = holes[idx];
+            if (hole === lastHole) {
+                return randomHole(holes);
+            }
+            lastHole = hole;
+            return hole;
+        }
+
+        function peep() {
+            const time = randomTime(400, 1000);
+            const hole = randomHole(holes);
+            hole.classList.add('up');
+            setTimeout(() => {
+                hole.classList.remove('up');
+                if (!timeUp) peep();
+            }, time);
+        }
+
+        function bonk(e) {
+            if (!e.isTrusted) return; // a little cheat prevention
+            score++;
+            this.parentNode.classList.remove('up');
+            scoreEl.textContent = score;
+        }
+
+        moles.forEach(mole => mole.addEventListener('click', bonk));
+
+        function startGame() {
+            resetGame();
+            startBtn.style.display = 'none';
+            timeUp = false;
+            peep();
+
+            gameInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(gameInterval);
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function endGame() {
+            timeUp = true;
+            restartBtn.style.display = 'inline-block';
+            if (score > 10) {
+                 resultEl.textContent = `Score: ${score}! You're a legend!`;
+            } else {
+                 resultEl.textContent = `Score: ${score}! Nice try, bro!`;
+            }
+            launchConfetti();
+        }
+
+        function resetGame() {
+            score = 0;
+            timeLeft = 15;
+            scoreEl.textContent = '0';
+            timerEl.textContent = '15';
+            resultEl.textContent = '';
+            startBtn.style.display = 'inline-block';
+            restartBtn.style.display = 'none';
+            timeUp = true;
+            if (gameInterval) clearInterval(gameInterval);
+        }
+
+        // --- FUN CONFETTI LOGIC ---
+        function launchConfetti() {
+            const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#1dd1a1', '#ff9ff3', '#f368e0'];
+            for (let i = 0; i < 100; i++) {
+                createConfettiPiece(colors);
+            }
+        }
+
+        function createConfettiPiece(colors) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+
+            const x = Math.random() * window.innerWidth;
+            const y = -20;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const size = Math.random() * 10 + 5;
+
+            confetti.style.left = `${x}px`;
+            confetti.style.top = `${y}px`;
+            confetti.style.backgroundColor = color;
+            confetti.style.width = `${size}px`;
+            confetti.style.height = `${size}px`;
+
+            document.body.appendChild(confetti);
+
+            const fallSpeed = Math.random() * 4 + 3;
+            const rotateSpeed = Math.random() * 360 - 180;
+
+            confetti.animate([
+                { transform: `translateY(0) rotate(0deg)` },
+                { transform: `translateY(${window.innerHeight + 50}px) rotate(${rotateSpeed * 4}deg)` }
+            ], {
+                duration: fallSpeed * 1000,
+                easing: 'linear',
+            }).onfinish = () => {
+                confetti.remove();
+            };
+        }
+
+    </script>
+</body>
+</html>
+
